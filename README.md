@@ -1,5 +1,4 @@
-# PkmnRaidCalc
-For Pokemon go players
+# PkmnRaidCalc for Pokemon go players
 Simple web application that connect with pokebattler and summarize the best raids counters for a given raid
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.0.3.
