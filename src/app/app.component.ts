@@ -112,4 +112,18 @@ export class AppComponent implements OnInit {
   test() {
     console.log('sss');
   }
+
+  getMinPlayer(time: number) {
+      if (this.level == 5) {
+        if (time < 280) return "SOLO" else
+        if (time < 560) return "DUO" else
+        if (time < 840) return "TRIO" else
+        return "4+";
+      } else {
+        if (time < 170) return "SOLO" else
+        if (time < 340) return "DUO" else
+        if (time < 510) return "TRIO" else
+          return "4+";
+      }
+  }
 }

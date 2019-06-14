@@ -1,33 +1,49 @@
-<form clrForm clrLayout="horizontal">
-  <clr-input-container>
-    <label>Pokemon</label>
-    <input clrInput placeholder="Pokemon name" name="name" [(ngModel)]="name" />
-  </clr-input-container>
+<div style="margin: 25px">
+  <div class="clr-row">
+    <div class="clr-col-lg-5 clr-col-md-8 clr-col-12">
+      <div class="card">
+        <div class="card-header">
+          Poke Raid Simulator
+        </div>
+        <div class="card-block">
+          <div class="card-title">
+            Simulate data for:
+          </div>
+          <div class="card-text">
+            <form clrForm clrLayout="horizontal">
+              <clr-input-container>
+                <label>Pokemon</label>
+                <input clrInput placeholder="Pokemon name" name="name" [(ngModel)]="name"/>
+              </clr-input-container>
 
-  <clr-input-container>
-    <label>Raid level</label>
-    <input clrInput type="number" max="5" min="1" placeholder="Raid level" name="level" [(ngModel)]="level" />
-  </clr-input-container>
-  <br>
-  <div style="position: relative; left: 220px;">
-  <button [clrLoading]="loading" class="btn btn-success-outline" (click)="callData()">run calcs</button>
+              <clr-input-container>
+                <label>Raid level</label>
+                <input clrInput type="number" max="5" min="1" placeholder="Raid level" name="level"
+                       [(ngModel)]="level"/>
+              </clr-input-container>
+              <br>
+              <div style="position: relative; left: 220px;">
+                <button [clrLoading]="loading" class="btn btn-success-outline" (click)="callData()">run calcs</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-</form>
 
-<div class="strike">
-  <span>Results</span>
+  <h3 style="margin-bottom: 10px">Results</h3>
+
+  <div *ngFor="let pokemon of poks?.pokemons" style="margin-left: 10px; margin-bottom: 10px">
+    <ul>
+      <li>
+        <span><b>{{pokemon?.name}} ({{pokemon?.level}}) </b></span>
+        <span class="label label-info">{{pokemon?.timeToWin / 1000}}
+          - {{getMinPlayer(pokemon?.timeToWin / 1000)}}</span>
+        <span class="label label-danger">{{pokemon?.deaths | number }}</span>
+        <span class="label label-success">{{pokemon?.bestMoveFast}}</span>
+        <span class="label label-success">{{pokemon?.bestMoveCharge}}</span>
+      </li>
+    </ul>
+  </div>
 </div>
-
-<div *ngFor="let pokemon of poks?.pokemons" style="margin-left: 10px">
-  <h4>{{pokemon?.name}} ({{pokemon?.level}})</h4>
-  <ul>
-    <li>
-      <span class="label label-info">{{pokemon?.timeToWin/1000}}</span>
-      <span class="label label-danger">{{pokemon?.deaths | number }}</span>
-      <span class="label label-success">{{pokemon?.bestMoveFast}}</span>
-      <span class="label label-success">{{pokemon?.bestMoveCharge}}</span>
-    </li>
-  </ul>
-</div>
-
-
