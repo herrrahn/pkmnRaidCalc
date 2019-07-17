@@ -29,3 +29,13 @@
   left: 100%;
   margin-left: 15px;
 }
+
+td:hover
+{
+  background-color:#eee;
+}
+
+td
+{
+  background-color:#fafafa;
+}

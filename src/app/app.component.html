@@ -1,6 +1,6 @@
-<div style="margin: 25px">
+<div style="position: relative; left: 50%; margin-left: -425px;width: 850px; border-width: 1px">
   <div class="clr-row">
-    <div class="clr-col-lg-5 clr-col-md-8 clr-col-12">
+    <div>
       <div class="card">
         <div class="card-header">
           Poke Raid Simulator
@@ -10,31 +10,75 @@
             Simulate data for:
           </div>
           <div class="card-text">
-            <form clrForm clrLayout="horizontal">
-              <clr-input-container>
-                <label>Pokemon</label>
-                <input clrInput placeholder="Pokemon name" name="name" [(ngModel)]="name"/>
-              </clr-input-container>
+            <clr-input-container>
+              <label>Pokemon</label>
+              <input clrInput placeholder="Pokemon name" name="name" [(ngModel)]="name"/>
 
-              <clr-input-container>
-                <label>Raid level</label>
-                <input clrInput type="number" max="5" min="1" placeholder="Raid level" name="level"
-                       [(ngModel)]="level"/>
-              </clr-input-container>
-              <br>
-              <div style="position: relative; left: 220px;">
-                <button [clrLoading]="loading" class="btn btn-success-outline" (click)="callData()">run calcs</button>
+            </clr-input-container>
+            <button type="button" class="btn btn-primary" (click)="show_pokemon_list = true">Pick pokemon from list </button>
+
+            <clr-input-container>
+              <label>Raid level</label>
+              <input clrInput type="number" max="5" min="1" placeholder="Raid level" name="level"
+                     [(ngModel)]="level"/>
+            </clr-input-container>
+            <br>
+
+            <label class="clr-control-label">Weather</label>
+            <div class="btn-group">
+              <div class="radio btn">
+                <input type="radio" name="btn-group-demo-radios" id="btn-demo-radio-1" value="NO_WEATHER"
+                       [(ngModel)]="weather" checked>
+                <label for="btn-demo-radio-1">Extreme</label>
               </div>
-            </form>
+              <div class="radio btn">
+                <input type="radio" name="btn-group-demo-radios" id="btn-demo-radio-2" value="CLEAR"
+                       [(ngModel)]="weather">
+                <label for="btn-demo-radio-2">Sunny/Clear</label>
+              </div>
+              <div class="radio btn">
+                <input type="radio" name="btn-group-demo-radios" id="btn-demo-radio-3" value="RAINY"
+                       [(ngModel)]="weather">
+                <label for="btn-demo-radio-3">Rainy</label>
+              </div>
+              <div class="radio btn">
+                <input type="radio" name="btn-group-demo-radios" id="btn-demo-radio-4" value="PARTLY_CLOUDY"
+                       [(ngModel)]="weather">
+                <label for="btn-demo-radio-4">Partly Cloudy</label>
+              </div>
+              <div class="radio btn">
+                <input type="radio" name="btn-group-demo-radios" id="btn-demo-radio-5" value="OVERCAST"
+                       [(ngModel)]="weather">
+                <label for="btn-demo-radio-5">Cloudy</label>
+              </div>
+              <div class="radio btn">
+                <input type="radio" name="btn-group-demo-radios" id="btn-demo-radio-6" value="WINDY"
+                       [(ngModel)]="weather">
+                <label for="btn-demo-radio-6">Windy</label>
+              </div>
+              <div class="radio btn">
+                <input type="radio" name="btn-group-demo-radios" id="btn-demo-radio-7" value="SNOW"
+                       [(ngModel)]="weather">
+                <label for="btn-demo-radio-7">Snow</label>
+              </div>
+              <div class="radio btn">
+                <input type="radio" name="btn-group-demo-radios" id="btn-demo-radio-8" value="FOG"
+                       [(ngModel)]="weather">
+                <label for="btn-demo-radio-8">Fog</label>
+              </div>
+
+            </div>
+            <div style="position: relative; left: 310px; margin-left: 0px; margin-top: 15px">
+              <button [clrLoading]="loading" class="btn btn-success-outline" (click)="callData()">run calcs</button>
+            </div>
           </div>
         </div>
+
       </div>
     </div>
   </div>
-
-  <h3 style="margin-bottom: 10px">Results</h3>
-
-  <div *ngFor="let pokemon of poks?.pokemons" style="margin-left: 10px; margin-bottom: 10px">
+  <h3  style="position: relative; left: 335px; margin-left: 0px; margin-top: 15px">Results</h3>
+  <div *ngFor="let pokemon of poks?.pokemons" style="margin-top: 15px; margin-left: 10px; margin-bottom: 15px">
     <ul>
       <li>
         <span><b>{{pokemon?.name}} ({{pokemon?.level}}) </b></span>
@@ -47,3 +91,31 @@
     </ul>
   </div>
 </div>
+
+<clr-modal [(clrModalOpen)]="show_pokemon_list" clrModalSize="xl">
+  <h3 class="modal-title">Pick a Pokemon</h3>
+  <div class="modal-body">
+    <div class="clr-row">
+      <div class="clr-col-1 clr-col-lg-2 clr-col-xl-3"  *ngFor="let gen of pokemons; index as i">
+        <table class="table table-noborder">
+          <thead>
+          <tr>
+            <th>Gen {{i + 1}}</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let pokemon of gen">
+          <!--  <td><img src="../assets/{{pokemon}}.ico" width="28px" height="28px"/></td> -->
+            <td (click)="selectPokemon(pokemon)">
+              {{pokemon}}
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline" (click)="show_pokemon_list = false">Cancel</button>
+  </div>
+</clr-modal>
